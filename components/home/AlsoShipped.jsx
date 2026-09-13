@@ -5,7 +5,7 @@ import { ArrowRight } from '../icons';
 
 export default function AlsoShipped() {
   return (
-    <section className="sect">
+    <section className="sect" style={{ paddingTop: '0px!important' }}>
       <div className="wrap">
         <div className="also-head">
           <Reveal className="stack-4">
