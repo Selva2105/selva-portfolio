@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Reveal from '../Reveal';
 import { ArrowRight, DocIcon } from '../icons';
 import { LINKS } from '../../lib/links';
+import heroImage from '../../public/hero-image.png';
 
 const CHIPS = ['Next.js & React.js', 'Node.js & Express', 'TypeScript', 'Prisma & MongoDB', 'Ships production UI'];
 
@@ -18,7 +20,7 @@ export default function Hero() {
         <div className="hero-grid">
           <div className="hero-col">
             <Reveal as="h1" className="h1 hero-h1" i={1}>
-              I&apos;m Selvaganapathi — I build enterprise systems
+              I&apos;m <span style={{ color: 'var(--ac)' }}>Selvaganapathi</span> — I build enterprise systems
               <span className="em">people rely on without thinking about it.</span>
             </Reveal>
 
@@ -47,7 +49,15 @@ export default function Hero() {
 
           <Reveal as="aside" className="hero-card" i={2}>
             <div className="portrait">
-              <div className="portrait-fallback"><span>Add a photo here</span></div>
+              <Image
+                src={heroImage}
+                alt="Selvaganapathi Kanakaraj at his desk"
+                fill
+                placeholder="blur"
+                sizes="(max-width: 960px) 260px, 32vw"
+                priority
+              />
+              <span className="portrait-grade" aria-hidden="true" />
               <div className="portrait-cap">
                 <b>Selvaganapathi Kanakaraj</b>
                 <span>Full Stack Developer</span>
