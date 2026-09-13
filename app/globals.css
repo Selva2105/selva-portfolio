@@ -199,18 +199,14 @@ strong,b{color:var(--fg);font-weight:600}
 }
 .nav.stuck{background:var(--nav-bg);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);border-bottom-color:var(--line)}
 .nav-in{max-width:var(--max);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.02em;font-size:.94rem}
-.brand-mark{display:block;width:23px;height:25px;flex:none;color:var(--fg);transition:color .4s var(--ease),transform .5s var(--ease)}
-.brand-mark .logo-mark{display:block;width:100%;height:100%}
-.brand:hover .brand-mark{color:var(--ac);transform:translateY(-1px)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.02em;font-size:.94rem;transition:color .25s}
+.brand:hover{color:var(--ac)}
 .brand-wm{transition:opacity .4s}
-@media(max-width:420px){.brand-wm{display:none}}
 
-/* full lockup */
-.logo-lockup{display:block;color:var(--fg);width:clamp(168px,20vw,206px)}
-.logo-lockup .logo-full{display:block;width:100%;height:auto}
 .logo-foot{opacity:.92;transition:opacity .4s,color .4s}
 .logo-foot:hover{opacity:1;color:#fff}
+.foot-brand{display:flex;align-items:center;gap:12px}
+.foot-brand-name{font-weight:600;letter-spacing:-.02em;font-size:1.15rem;color:var(--fg)}
 .nav-links{display:flex;align-items:center;gap:4px}
 .nav-links a{
   font-size:.855rem;color:var(--fg-3);padding:7px 12px;border-radius:7px;
