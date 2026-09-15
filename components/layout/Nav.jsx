@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { MoonIcon, SunIcon } from '../icons';
+import Logo from '../Logo';
 
 export default function Nav() {
   const [stuck, setStuck] = useState(false);
@@ -41,7 +42,11 @@ export default function Nav() {
       <nav className={`nav${stuck ? ' stuck' : ''}`}>
         <div className="nav-in">
           <Link href="/" className="brand" aria-label="Selvaganapathi Kanakaraj — home">
-            <span className="brand-wm">Selvaganapathi Kanakaraj</span>
+            <span className="brand-mark"><Logo /></span>
+            <span style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              <span className="brand-wm" style={{ lineHeight: '1!important' }}>Selvaganapathi Kanakaraj</span>
+              <span className="small" style={{ color: 'var(--fg-4)', fontSize: '10px' }}>Full Stack Developer</span>
+            </span>
           </Link>
           <div className="nav-links">
             <span className="nav-internal">

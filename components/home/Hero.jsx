@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Reveal from '../Reveal';
 import { ArrowRight, DocIcon } from '../icons';
 import { LINKS } from '../../lib/links';
-import heroImage from '../../public/hero-image.png';
+import heroImageDark from '../../public/hero-dark-image.png';
+import heroImageLight from '../../public/hero-light-image.png';
 
 const CHIPS = ['Next.js & React.js', 'Node.js & Express', 'TypeScript', 'Prisma & MongoDB', 'Ships production UI'];
 
@@ -50,12 +51,23 @@ export default function Hero() {
           <Reveal as="aside" className="hero-card" i={2}>
             <div className="portrait">
               <Image
-                src={heroImage}
+                src={heroImageDark}
                 alt="Selvaganapathi Kanakaraj at his desk"
                 fill
                 placeholder="blur"
                 sizes="(max-width: 960px) 260px, 32vw"
                 priority
+                className="portrait-photo portrait-photo-dark"
+              />
+              <Image
+                src={heroImageLight}
+                alt=""
+                aria-hidden="true"
+                fill
+                placeholder="blur"
+                sizes="(max-width: 960px) 260px, 32vw"
+                priority
+                className="portrait-photo portrait-photo-light"
               />
               <span className="portrait-grade" aria-hidden="true" />
               <div className="portrait-cap">
