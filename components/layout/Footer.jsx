@@ -5,8 +5,9 @@ export default function Footer() {
   return (
     <footer className="foot">
       <div className="wrap">
-        <Link href="/" className="logo-foot foot-brand" style={{ marginBottom: 38 }} aria-label="Selvaganapathi Kanakaraj — home">
+        <Link href="/" className="logo-foot foot-brand" style={{ marginBottom: 38, flexDirection: 'column', alignItems: 'flex-start', gap: 0.5 }} aria-label="Selvaganapathi Kanakaraj — home">
           <span className="foot-brand-name">Selvaganapathi Kanakaraj</span>
+          <span className="small" style={{ color: 'var(--fg-4)' }}>Full Stack Developer</span>
         </Link>
         <div className="foot-grid">
           <div className="stack-3">
