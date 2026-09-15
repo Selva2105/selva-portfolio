@@ -1,6 +1,7 @@
 import './globals.css';
 import Nav from '../components/layout/Nav';
 import Footer from '../components/layout/Footer';
+import { Analytics } from "@vercel/analytics/next"
 
 /*
  * Theme init — runs before first paint and before hydration so every visit
@@ -43,6 +44,7 @@ export default function RootLayout({ children }) {
           {children}
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   );
