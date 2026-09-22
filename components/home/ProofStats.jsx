@@ -2,7 +2,7 @@ import Reveal from '../Reveal';
 
 const STATS = [
   { n: '2+ yrs', l: 'professional full stack experience' },
-  { n: '5+', l: 'production platforms shipped or contributed to' },
+  { n: '6+', l: 'production platforms shipped or contributed to' },
   { n: 'Next.js', l: 'React, Node.js and TypeScript across the stack' },
   { n: '1,000+', l: 'employees using systems I built, daily' },
 ];

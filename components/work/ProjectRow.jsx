@@ -1,11 +1,20 @@
+'use client';
+
 import Reveal from '../Reveal';
 import ProjectViz from './ProjectViz';
 import { ArrowRight } from '../icons';
 
+function onPointerMove(e) {
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  el.style.setProperty('--my', `${e.clientY - r.top}px`);
+}
+
 export default function ProjectRow({ project, i }) {
   return (
-    <Reveal href={`/work/${project.slug}`} className="wrow" i={i}>
-      <div>
+    <Reveal href={`/work/${project.slug}`} className="wrow" i={i} onPointerMove={onPointerMove}>
+      <div className="wcard-body">
         <div className="wcard-meta">
           <span className="work-idx">{project.idx}</span>
           {project.tags.map((t) => (

@@ -13,7 +13,7 @@ export default function WorkPage() {
         <div className="wrap">
           <Reveal as="p" className="eyebrow" style={{ marginBottom: 20 }}>Case studies</Reveal>
           <Reveal as="h1" className="h1" i={1} style={{ maxWidth: '15ch' }}>
-            Five builds, <span className="em" style={{ color: 'var(--fg-2)' }}>one thread</span>
+            Six builds, <span className="em" style={{ color: 'var(--fg-2)' }}>one thread</span>
           </Reveal>
           <Reveal as="p" className="lead cs-sub" i={2}>
             Every project here is the same job in different clothing: enterprise systems that have to
@@ -25,14 +25,16 @@ export default function WorkPage() {
 
       <section className="sect" style={{ paddingTop: 'clamp(40px,6vw,72px)' }}>
         <div className="wrap">
-          {PROJECTS.map((p, i) => (
-            <ProjectRow project={p} i={i} key={p.slug} />
-          ))}
+          <div className="wstack">
+            {PROJECTS.map((p, i) => (
+              <ProjectRow project={p} i={i} key={p.slug} />
+            ))}
+          </div>
 
           <Reveal style={{ marginTop: 'clamp(32px,4vw,52px)' }}>
             <div className="callout" style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap', justifyContent: 'space-between' }}>
               <span style={{ maxWidth: '52ch' }}>
-                <strong>More in progress.</strong> Five case studies are written to the depth I think they deserve.
+                <strong>More in progress.</strong> Six case studies are written to the depth I think they deserve.
                 The rest of what I&apos;ve shipped — across four companies — is on the journey page, and some of it
                 will graduate to a full write-up over time.
               </span>

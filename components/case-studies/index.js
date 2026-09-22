@@ -3,6 +3,7 @@ import MDM from './MDM';
 import Intranet from './Intranet';
 import CareersPortal from './CareersPortal';
 import ExpenseTracker from './ExpenseTracker';
+import Cairn from './Cairn';
 
 export const CASE_STUDIES = {
   hrms: HRMS,
@@ -10,4 +11,5 @@ export const CASE_STUDIES = {
   intranet: Intranet,
   'careers-portal': CareersPortal,
   'expense-tracker': ExpenseTracker,
+  cairn: Cairn,
 };

@@ -16,7 +16,7 @@ export default function AlsoShipped() {
             <p className="body" style={{ maxWidth: '46ch' }}>
               These didn&apos;t earn a full case study — either the scope was smaller, or the work was
               shared across a bigger team. Breadth is context, not the argument.{' '}
-              <span className="hl">The five above are where the depth is.</span>
+              <span className="hl">The six above are where the depth is.</span>
             </p>
             <Link href="/journey" className="work-go" style={{ marginTop: 2 }}>See the full journey <ArrowRight /></Link>
           </Reveal>

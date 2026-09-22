@@ -21,7 +21,7 @@ export default function Home() {
         <div className="wrap">
           <Reveal className="sh">
             <p className="eyebrow">Selected work</p>
-            <h2 className="h2" style={{ maxWidth: '18ch' }}>Five builds, one thread</h2>
+            <h2 className="h2" style={{ maxWidth: '18ch' }}>Six builds, one thread</h2>
             <p className="lead read" style={{ marginTop: 6 }}>
               Every project here is the same job in different clothing: enterprise systems that have to
               stay usable for people who are not developers. HR admins aren&apos;t engineers. IT managers

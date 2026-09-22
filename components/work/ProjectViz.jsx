@@ -175,12 +175,91 @@ function ExpenseTrackerViz() {
   );
 }
 
+function CairnViz() {
+  return (
+    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <rect width="400" height="300" fill="var(--bg-2)" />
+      
+      {/* Header: Cairn Cairn Stone Logo + Status */}
+      <g transform="translate(32, 28)">
+        {/* Cairn pebble stack logo */}
+        <ellipse cx="14" cy="22" rx="10" ry="3.5" fill="var(--ac)" />
+        <ellipse cx="14" cy="15" rx="7.5" ry="3" fill="var(--ac)" opacity=".85" />
+        <ellipse cx="14" cy="9" rx="5" ry="2.2" fill="var(--ac-2)" />
+        <ellipse cx="14" cy="4" rx="3" ry="1.5" fill="var(--fg)" />
+
+        <rect x="34" y="6" width="76" height="8" rx="4" fill="var(--fg)" opacity=".85" />
+        <rect x="34" y="18" width="110" height="6" rx="3" fill="var(--fg-3)" />
+
+        {/* 03:00 UTC Runner Badge */}
+        <rect x="238" y="5" width="98" height="20" rx="10" fill="var(--bg-3)" stroke="var(--t4)" />
+        <circle cx="250" cy="15" r="3.5" fill="var(--ok)" />
+        <text x="260" y="19" fontFamily="JetBrains Mono,monospace" fontSize="8.5" fill="var(--fg-2)" letterSpacing="0.02em">03:00 UTC</text>
+      </g>
+
+      {/* Signal Queue / Ingestion Rows */}
+      {/* Item 1: Home Insurance */}
+      <g transform="translate(32, 74)">
+        <rect width="336" height="36" rx="8" fill="var(--bg-3)" stroke="var(--t4)" />
+        <circle cx="18" cy="18" r="4.5" fill="var(--warn)" />
+        <rect x="32" y="11" width="118" height="7" rx="3.5" fill="var(--fg)" opacity=".8" />
+        <rect x="32" y="22" width="156" height="5" rx="2.5" fill="var(--fg-4)" />
+        <rect x="246" y="9" width="78" height="18" rx="5" fill="var(--warn-bg)" stroke="var(--warn)" strokeOpacity=".4" />
+        <text x="285" y="21" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="var(--warn)">EXPIRES 12D</text>
+      </g>
+
+      {/* Item 2: HVAC Maintenance */}
+      <g transform="translate(32, 118)">
+        <rect width="336" height="36" rx="8" fill="var(--bg-3)" stroke="var(--t4)" />
+        <circle cx="18" cy="18" r="4.5" fill="var(--ok)" />
+        <rect x="32" y="11" width="140" height="7" rx="3.5" fill="var(--fg)" opacity=".8" />
+        <rect x="32" y="22" width="130" height="5" rx="2.5" fill="var(--fg-4)" />
+        <rect x="246" y="9" width="78" height="18" rx="5" fill="var(--ok-bg)" stroke="var(--ok)" strokeOpacity=".4" />
+        <text x="285" y="21" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="var(--ok)">SCHEDULED</text>
+      </g>
+
+      {/* Item 3: Passport Expiry Rule */}
+      <g transform="translate(32, 162)">
+        <rect width="336" height="36" rx="8" fill="var(--bg-3)" stroke="var(--t4)" />
+        <circle cx="18" cy="18" r="4.5" fill="var(--ac)" />
+        <rect x="32" y="11" width="102" height="7" rx="3.5" fill="var(--fg)" opacity=".8" />
+        <rect x="32" y="22" width="170" height="5" rx="2.5" fill="var(--fg-4)" />
+        <rect x="246" y="9" width="78" height="18" rx="5" fill="var(--ac-bg)" stroke="var(--ac)" strokeOpacity=".4" />
+        <text x="285" y="21" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="var(--ac)">60D RULE</text>
+      </g>
+
+      {/* Divider */}
+      <rect x="32" y="210" width="336" height="1" fill="var(--t4)" />
+
+      {/* Multi-Channel Alert Bus (BullMQ Workers -> WhatsApp & Email) */}
+      <g transform="translate(32, 222)">
+        {/* WhatsApp Channel Card */}
+        <rect x="0" y="0" width="162" height="52" rx="8" fill="var(--bg-3)" stroke="var(--t4)" />
+        <rect x="10" y="10" width="14" height="14" rx="4" fill="rgba(62,207,142,.15)" stroke="var(--ok)" strokeOpacity=".5" />
+        <circle cx="17" cy="17" r="2.5" fill="var(--ok)" />
+        <text x="30" y="21" fontFamily="Inter,sans-serif" fontSize="9" fontWeight="600" fill="var(--fg)">WhatsApp Bot</text>
+        <rect x="10" y="32" width="128" height="5" rx="2.5" fill="var(--fg-4)" />
+        <rect x="10" y="40" width="94" height="5" rx="2.5" fill="var(--fg-4)" opacity=".6" />
+
+        {/* Email Digest Channel Card */}
+        <rect x="174" y="0" width="162" height="52" rx="8" fill="var(--bg-3)" stroke="var(--t4)" />
+        <rect x="184" y="10" width="14" height="14" rx="4" fill="rgba(255,93,59,.15)" stroke="var(--ac)" strokeOpacity=".5" />
+        <circle cx="191" cy="17" r="2.5" fill="var(--ac)" />
+        <text x="204" y="21" fontFamily="Inter,sans-serif" fontSize="9" fontWeight="600" fill="var(--fg)">Email Digest</text>
+        <rect x="184" y="32" width="136" height="5" rx="2.5" fill="var(--fg-4)" />
+        <rect x="184" y="40" width="82" height="5" rx="2.5" fill="var(--fg-4)" opacity=".6" />
+      </g>
+    </svg>
+  );
+}
+
 const VIZ_BY_SLUG = {
   hrms: HrmsViz,
   mdm: MdmViz,
   intranet: IntranetViz,
   'careers-portal': CareersPortalViz,
   'expense-tracker': ExpenseTrackerViz,
+  cairn: CairnViz,
 };
 
 export default function ProjectViz({ slug }) {

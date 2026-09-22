@@ -4,11 +4,17 @@ import Footer from '../components/layout/Footer';
 import { Analytics } from "@vercel/analytics/next"
 
 /*
- * Theme init — runs before first paint and before hydration so every visit
- * opens dark, with no OS sniffing and no stored preference. No theme library.
+ * Theme init — runs before first paint and before hydration.
+ * Checks localStorage for saved user preference, defaulting to dark if none stored.
  */
 const themeInit = `(function(){
-  document.documentElement.setAttribute('data-theme', 'dark');
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = (stored === 'light' || stored === 'dark') ? stored : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 })();`;
 
 export const metadata = {

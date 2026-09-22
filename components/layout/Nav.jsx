@@ -12,7 +12,17 @@ export default function Nav() {
   const ticking = useRef(false);
 
   useEffect(() => {
-    setTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+    try {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'light' || stored === 'dark') {
+        document.documentElement.setAttribute('data-theme', stored);
+        setTheme(stored);
+      } else {
+        setTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+      }
+    } catch (e) {
+      setTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+    }
 
     function onScroll() {
       if (ticking.current) return;
@@ -33,6 +43,9 @@ export default function Nav() {
   function toggleTheme() {
     const next = theme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {}
     setTheme(next);
   }
 
