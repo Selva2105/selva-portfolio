@@ -1,6 +1,7 @@
 import './globals.css';
 import Nav from '../components/layout/Nav';
 import Footer from '../components/layout/Footer';
+import StarterLoader from '../components/ui/StarterLoader';
 import { Analytics } from "@vercel/analytics/next"
 
 /*
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body suppressHydrationWarning>
+        <StarterLoader />
         <Nav />
         <div id="app">
           {children}
