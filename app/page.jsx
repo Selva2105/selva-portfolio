@@ -19,7 +19,8 @@ export default function Home() {
 
       <section className="sect">
         <div className="wrap">
-          <Reveal className="sh">
+          <div data-tour="work-section">
+            <Reveal className="sh">
             <p className="eyebrow">Selected work</p>
             <h2 className="h2" style={{ maxWidth: '18ch' }}>Six builds, one thread</h2>
             <p className="lead read" style={{ marginTop: 6 }}>
@@ -28,6 +29,7 @@ export default function Home() {
               aren&apos;t frontend specialists. I build the interface and the API underneath it.
             </p>
           </Reveal>
+          </div>
 
           <Reveal className="rail-head">
             <Link href="/work" className="work-go" style={{ margin: 0 }}>View all case studies <ArrowRight /></Link>

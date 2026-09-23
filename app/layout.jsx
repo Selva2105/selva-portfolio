@@ -2,6 +2,8 @@ import './globals.css';
 import Nav from '../components/layout/Nav';
 import Footer from '../components/layout/Footer';
 import StarterLoader from '../components/ui/StarterLoader';
+import { TourProvider } from '../components/tour/TourContext';
+import PortfolioTour from '../components/tour/PortfolioTour';
 import { Analytics } from "@vercel/analytics/next"
 
 /*
@@ -47,11 +49,14 @@ export default function RootLayout({ children }) {
       </head>
       <body suppressHydrationWarning>
         <StarterLoader />
-        <Nav />
-        <div id="app">
-          {children}
-          <Footer />
-        </div>
+        <TourProvider>
+          <Nav />
+          <div id="app">
+            {children}
+            <Footer />
+          </div>
+          <PortfolioTour />
+        </TourProvider>
         <Analytics />
       </body>
     </html>

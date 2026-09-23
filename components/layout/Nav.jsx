@@ -67,9 +67,10 @@ export default function Nav() {
               <Link href="/journey">Journey</Link>
               <Link href="/about">Approach</Link>
             </span>
-            <Link href="/contact" className="nav-cta">Get in touch</Link>
+            <Link href="/contact" className="nav-cta" data-tour="nav-contact">Get in touch</Link>
             <button
               className="theme-btn"
+              data-tour="theme-toggle"
               onClick={toggleTheme}
               aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
               aria-pressed={theme === 'light'}
