@@ -58,7 +58,7 @@ export default function Nav() {
             <span className="brand-mark"><Logo /></span>
             <span style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
               <span className="brand-wm" style={{ lineHeight: '1!important' }}>Selvaganapathi Kanakaraj</span>
-              <span className="small" style={{ color: 'var(--fg-4)', fontSize: '10px' }}>Full Stack Developer</span>
+              <span className="small brand-sub" style={{ color: 'var(--fg-4)', fontSize: '10px' }}>Full Stack Developer</span>
             </span>
           </Link>
           <div className="nav-links">
