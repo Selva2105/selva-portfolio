@@ -6,15 +6,33 @@ import Link from 'next/link';
 /*
  * Scroll-reveal wrapper. Mirrors the .rv / .rv.in contract in globals.css:
  * elements start hidden (opacity/transform/blur) and fade in once they cross
- * the viewport, staggered via the --i custom property. Each instance owns
- * its own IntersectionObserver instead of one global querySelectorAll pass,
- * so it works regardless of which page mounted it.
+ * the viewport, staggered via the --i custom property. All instances share
+ * one observer to avoid creating dozens of independent browser observers.
  *
  * `as` only ever takes a string tag name — never a component reference —
  * because a Server Component can't pass a function/component prop across
  * the boundary into this Client Component. Pass `href` instead of `as={Link}`
  * to render a Next.js Link; Link is resolved here, inside the client module.
  */
+let revealObserver;
+
+function getRevealObserver() {
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.04 }
+    );
+  }
+  return revealObserver;
+}
+
 export default function Reveal({ as: Tag = 'div', href, i, className = '', style, children, ...props }) {
   const ref = useRef(null);
 
@@ -27,19 +45,9 @@ export default function Reveal({ as: Tag = 'div', href, i, className = '', style
       return;
     }
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.classList.add('in');
-            io.unobserve(el);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.04 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    const observer = getRevealObserver();
+    observer.observe(el);
+    return () => observer.unobserve(el);
   }, []);
 
   const cls = `rv ${className}`.trim();

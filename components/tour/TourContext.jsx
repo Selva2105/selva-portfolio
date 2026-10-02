@@ -8,7 +8,7 @@ export const TOUR_STEPS = [
     id: 'hero-profile',
     selector: '[data-tour="hero-profile"]',
     title: 'Meet Selvaganapathi',
-    description: 'Full Stack Developer with 2+ years shipping production enterprise systems (HRMS, MDM, Intranet) in Next.js, React, and Node.js.',
+    description: 'Full Stack Developer shipping production enterprise systems (HRMS, MDM, Intranet) in Next.js, React, and Node.js since 2023.',
     page: '/',
     preferredPosition: 'left',
   },

@@ -4,6 +4,7 @@ import Reveal from '../Reveal';
 import { ArrowRight, DocIcon } from '../icons';
 import { LINKS } from '../../lib/links';
 import heroImageDark from '../../public/hero-dark-image.png';
+import heroImageLight from '../../public/hero-light-image.png';
 
 const CHIPS = ['Next.js & React.js', 'Node.js & Express', 'TypeScript', 'Prisma & MongoDB', 'Ships production UI'];
 
@@ -25,7 +26,7 @@ export default function Hero() {
             </Reveal>
 
             <Reveal as="p" className="lead hero-sub" i={2}>
-              For 2+ years I&apos;ve built the software that runs companies from the inside —{' '}
+              Since 2023, I&apos;ve built the software that runs companies from the inside —{' '}
               <span className="hl">HR platforms, device management, internal tools</span> — using
               Next.js, React and Node.js. Most of that time I&apos;ve been the only frontend engineer
               on the module, which means <span className="hl">I also talk to stakeholders and ship the
@@ -59,6 +60,17 @@ export default function Hero() {
                 sizes="(max-width: 960px) 260px, 32vw"
                 priority
                 className="portrait-photo portrait-photo-dark"
+              />
+              <Image
+                src={heroImageLight}
+                alt=""
+                aria-hidden="true"
+                fill
+                placeholder="blur"
+                sizes="(max-width: 960px) 260px, 32vw"
+                loading="lazy"
+                fetchPriority="low"
+                className="portrait-photo portrait-photo-light"
               />
               <span className="portrait-grade" aria-hidden="true" />
               <div className="portrait-cap">

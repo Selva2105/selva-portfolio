@@ -2,9 +2,9 @@ import './globals.css';
 import { Inter, JetBrains_Mono, Newsreader } from 'next/font/google';
 import Nav from '../components/layout/Nav';
 import Footer from '../components/layout/Footer';
-import { TourProvider } from '../components/tour/TourContext';
-import PortfolioTour from '../components/tour/PortfolioTour';
+import TourExperience from '../components/tour/TourExperience';
 import { Analytics } from "@vercel/analytics/next"
+import WebVitals from '../components/monitoring/WebVitals';
 import { LINKS } from '../lib/links';
 import { SITE_DESCRIPTION, SITE_URL } from '../lib/site';
 
@@ -114,14 +114,13 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
         />
         <a className="skip-link" href="#main-content">Skip to content</a>
-        <TourProvider>
-          <Nav />
-          <div id="app">
-            <main id="main-content">{children}</main>
-            <Footer />
-          </div>
-          <PortfolioTour />
-        </TourProvider>
+        <Nav />
+        <div id="app">
+          <main id="main-content">{children}</main>
+          <Footer />
+        </div>
+        <TourExperience />
+        <WebVitals />
         <Analytics />
       </body>
     </html>

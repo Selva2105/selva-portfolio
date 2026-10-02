@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { MoonIcon, SunIcon } from '../icons';
 import Logo from '../Logo';
 
@@ -9,7 +10,9 @@ export default function Nav() {
   const [stuck, setStuck] = useState(false);
   const [progress, setProgress] = useState(0);
   const [theme, setTheme] = useState('dark');
+  const [menuOpen, setMenuOpen] = useState(false);
   const ticking = useRef(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     try {
@@ -40,6 +43,19 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') setMenuOpen(false);
+    }
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [menuOpen]);
+
   function toggleTheme() {
     const next = theme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
@@ -63,9 +79,9 @@ export default function Nav() {
           </Link>
           <div className="nav-links">
             <span className="nav-internal">
-              <Link href="/work">Work</Link>
-              <Link href="/journey">Journey</Link>
-              <Link href="/about">Approach</Link>
+              <Link href="/work" aria-current={pathname === '/work' || pathname.startsWith('/work/') ? 'page' : undefined}>Work</Link>
+              <Link href="/journey" aria-current={pathname === '/journey' ? 'page' : undefined}>Journey</Link>
+              <Link href="/about" aria-current={pathname === '/about' ? 'page' : undefined}>Approach</Link>
             </span>
             <Link href="/contact" className="nav-cta" data-tour="nav-contact">Get in touch</Link>
             <button
@@ -79,7 +95,24 @@ export default function Nav() {
               <MoonIcon />
               <SunIcon />
             </button>
+            <button
+              type="button"
+              className="menu-btn"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
           </div>
+        </div>
+        <div id="mobile-navigation" className={`mobile-nav${menuOpen ? ' open' : ''}`} hidden={!menuOpen}>
+          <Link href="/work" aria-current={pathname === '/work' || pathname.startsWith('/work/') ? 'page' : undefined}>Work</Link>
+          <Link href="/journey" aria-current={pathname === '/journey' ? 'page' : undefined}>Journey</Link>
+          <Link href="/about" aria-current={pathname === '/about' ? 'page' : undefined}>Approach</Link>
         </div>
       </nav>
     </>
