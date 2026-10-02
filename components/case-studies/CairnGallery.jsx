@@ -73,7 +73,7 @@ export default function CairnGallery() {
     <>
       <section className="sect">
         <div className="wrap">
-          <SectionHead num="04" label="Interface showcase" title="Production interfaces built for calm coordination" />
+          <SectionHead num="05" label="Interface showcase" title="Production interfaces built for calm coordination" />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 12, marginBottom: 36 }}>
             <p className="lead read" style={{ margin: 0 }}>
               All 9 captured screens rendered at 2880 × 1800 Retina resolution. Open any screenshot in the full-screen viewer.

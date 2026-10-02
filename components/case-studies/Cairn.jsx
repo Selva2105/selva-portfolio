@@ -2,6 +2,7 @@ import Reveal from '../Reveal';
 import SectionHead from '../ui/SectionHead';
 import { Decision, Beats, Note } from '../ui/Decision';
 import ReflectionGrid from '../ui/ReflectionGrid';
+import ScopeGrid from '../ui/ScopeGrid';
 import NextProjectCTA from '../work/NextProjectCTA';
 import CaseStudyHeader from '../work/CaseStudyHeader';
 import SignalPipelineDemo from '../widgets/SignalPipelineDemo';
@@ -14,7 +15,39 @@ const FACTS = [
   { b: 'Nx Monorepo', s: 'web, api, worker & bot' },
   { b: 'BullMQ + Redis', s: 'Event-driven job queues' },
   { b: 'WhatsApp + Email', s: 'Multi-channel delivery' },
-  { b: 'NestJS + Next.js 14', s: 'Modular backend + App Router' },
+  { b: 'NestJS + Next.js 16', s: 'Modular backend + App Router' },
+];
+
+const ARCHITECTURE_CAPABILITIES = [
+  { t: 'Tenant-aware identity', d: 'Household membership is checked from current database state, allowing one user to hold different roles across tenants.' },
+  { t: 'Normalized event contracts', d: 'Every connector produces the same typed event envelope with source, timestamp, deduplication key, payload, and confidence.' },
+  { t: 'Exactly-once effects', d: 'Queues remain at-least-once; deterministic keys and database constraints prevent the same logical event being applied twice.' },
+  { t: 'Ports and adapters', d: 'Connectors and notification providers sit behind shared interfaces, keeping the rules engine independent of vendors.' },
+  { t: 'Deployable boundaries', d: 'Web, API, worker, and optional bot run separately while domain contracts and orchestration stay shared.' },
+  { t: 'Two processing modes', d: 'The same pipeline supports a persistent worker or a protected platform-cron endpoint without duplicating business logic.' },
+];
+
+const PRODUCTION_BOUNDARIES = [
+  {
+    lbl: 'Implemented reliability',
+    kind: 'good',
+    body: 'Correlation IDs, structured logs, database health checks, exponential retries, deduplication, failure isolation, and retained failed jobs.',
+  },
+  {
+    lbl: 'Operational gap',
+    kind: 'bad',
+    body: 'A complete dead-letter inspection and replay console, explicit backpressure policy, and distributed scheduler ownership still need hardening.',
+  },
+  {
+    lbl: 'Security gap',
+    kind: 'bad',
+    body: 'Credential encryption, webhook replay protection, upload malware controls, throttling, and documented secret rotation remain before public production use.',
+  },
+  {
+    lbl: 'Observability gap',
+    kind: 'bad',
+    body: 'End-to-end OpenTelemetry traces, centralized log aggregation, service-level objectives, metrics, and alert thresholds are not yet complete.',
+  },
 ];
 
 const REFLECTIONS = [
@@ -37,13 +70,13 @@ export default function Cairn() {
     <>
       <CaseStudyHeader
         num="06"
-        kicker="Personal project · Event-Driven System · Nx Monorepo · NestJS + Next.js 14"
+        kicker="Personal project · Event-Driven System · Nx Monorepo · NestJS + Next.js 16"
         title="Cairn"
         titleEm="catching household signals before they become emergencies"
         lead="A self-hosted, event-driven household operations platform designed to ingest messy real-world signals — renewing bills, expiring documents, home maintenance, and buried action items — and route timely alerts through WhatsApp and email. Architected as an Nx monorepo with modular NestJS services, BullMQ + Redis job queues, Prisma ORM on PostgreSQL, and a Next.js App Router dashboard."
         facts={FACTS}
         role={{
-          a: `I architected and built the entire system end to end — structuring the Nx monorepo, designing the PostgreSQL schemas via Prisma, implementing the BullMQ and Redis job pipeline, and building the Next.js 14 App Router dashboard with a custom dark-mode UI. To eliminate data entry friction, I integrated a WhatsApp bot for conversational receipt logging and task updates.`,
+          a: `I architected and built the entire system end to end — structuring the Nx monorepo, designing the PostgreSQL schemas via Prisma, implementing the BullMQ and Redis job pipeline, and building the Next.js 16 App Router dashboard with a custom dark-mode UI. To eliminate data entry friction, I integrated a WhatsApp bot for conversational receipt logging and task updates.`,
           b: `Household problems don't happen because people don't care; they happen because <span class="hl">real-world signals arrive silently and scatter</span> across inboxes, physical drawers, and message threads. Solving this required an event-driven architecture that treats household events like enterprise background jobs: queued, retried, deduplicated, and dispatched to the channels people actually read.`,
           roles: ['System Architect', 'Full Stack Developer'],
         }}
@@ -134,12 +167,12 @@ export default function Cairn() {
           </Decision>
 
           {/* Decision 02 */}
-          <Decision label="Decision 02 · Monorepo structure" title="Nx monorepo with modular NestJS services and Next.js 14">
+          <Decision label="Decision 02 · Monorepo structure" title="Nx monorepo with modular NestJS services and Next.js 16">
             <div className="dec-split">
               <div>
                 <p className="body read">
                   Rather than maintaining disconnected repositories for the web UI, worker services, and messaging bot,
-                  I organized Cairn as an <strong>Nx monorepo</strong>. The frontend runs on Next.js 14 App Router,
+                  I organized Cairn as an <strong>Nx monorepo</strong>. The frontend runs on Next.js 16 App Router,
                   while the API, rule execution pipeline, and background workers run on modular NestJS applications.
                 </p>
                 <p className="body read" style={{ marginTop: 14 }}>
@@ -203,10 +236,67 @@ export default function Cairn() {
 
       <hr className="rule" />
 
+      <section className="sect">
+        <div className="wrap">
+          <SectionHead num="03" label="System architecture" title="The engineering beneath the visible pipeline" />
+          <div className="grid-2" style={{ marginBottom: 32 }}>
+            <Reveal>
+              <p className="body">
+                The queue diagram explains how one alert moves, but not how the system stays changeable.
+                Cairn is a <strong>modular monolith with separately deployable processes</strong>: applications
+                compose inward-facing domain and orchestration libraries, while connectors, queues, persistence,
+                and notification providers remain replaceable adapters.
+              </p>
+            </Reveal>
+            <Reveal i={1}>
+              <p className="body">
+                This boundary matters because deployment topology can change without rewriting the rules engine.
+                A continuously running worker and a serverless cron entry point both invoke the same pipeline;
+                transport and scheduling are delivery mechanisms rather than business logic.
+              </p>
+            </Reveal>
+          </div>
+
+          <ScopeGrid items={ARCHITECTURE_CAPABILITIES} />
+
+          <Decision label="Reliability model" title="At-least-once delivery, exactly-once effects">
+            <div className="grid-2">
+              <p className="body read">
+                Cairn never assumes a queue will deliver a job exactly once. Jobs can be retried, workers can
+                restart, and providers can acknowledge a request after the caller times out. Each normalized
+                event therefore carries a deterministic deduplication key, while database constraints and
+                recorded delivery attempts prevent the same logical action from being applied twice.
+              </p>
+              <p className="body read">
+                Authentication follows the same server-authoritative principle. Short-lived access tokens and
+                rotating refresh tokens establish identity, but tenant authorization is checked against current
+                membership records because a user can hold different roles in different households—and access
+                can change before a token expires.
+              </p>
+            </div>
+            <Note label="The important distinction" style={{ marginTop: 20 }}>
+              Reliable systems do not promise that work runs once. They make repeated execution safe, observable,
+              and recoverable.
+            </Note>
+          </Decision>
+
+          <Decision label="Production readiness" title="Showing the boundary, not pretending it does not exist">
+            <p className="body read">
+              Cairn has the reliability foundation for sustained self-hosted use, but that is not the same as
+              claiming a public multi-tenant service is finished. I documented the remaining operational and
+              security work explicitly so the next engineering decisions follow risk rather than novelty.
+            </p>
+            <Beats items={PRODUCTION_BOUNDARIES} />
+          </Decision>
+        </div>
+      </section>
+
+      <hr className="rule" />
+
       {/* Interactive Pipeline Demo */}
       <section className="sect">
         <div className="wrap">
-          <SectionHead num="03" label="Live simulation" title="How signals travel through Cairn" />
+          <SectionHead num="04" label="Live simulation" title="How signals travel through Cairn" />
           <p className="lead read" style={{ marginBottom: 12 }}>
             Test how Cairn takes heterogeneous real-world signals, schedules them in BullMQ, evaluates
             rule conditions, and routes them to WhatsApp or email. Adjust the threshold slider or click interactive quick replies.
@@ -224,7 +314,7 @@ export default function Cairn() {
       {/* Reflections */}
       <section className="sect">
         <div className="wrap">
-          <SectionHead num="05" label="Reflection" title="Engineering lessons from real household usage" />
+          <SectionHead num="06" label="Reflection" title="Engineering lessons from real household usage" />
           <ReflectionGrid items={REFLECTIONS} />
         </div>
       </section>
