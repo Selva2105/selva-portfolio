@@ -9,7 +9,25 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = getProject(slug);
-  return { title: project ? project.title : 'Work' };
+  if (!project) return { title: 'Work' };
+
+  const canonical = `/work/${project.slug}`;
+  return {
+    title: project.title,
+    description: project.short,
+    alternates: { canonical },
+    openGraph: {
+      type: 'article',
+      title: `${project.title} — ${project.titleEm}`,
+      description: project.short,
+      url: canonical,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} — ${project.titleEm}`,
+      description: project.short,
+    },
+  };
 }
 
 export default async function CaseStudyPage({ params }) {

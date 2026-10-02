@@ -2,7 +2,11 @@ import Link from 'next/link';
 import Reveal from '../../components/Reveal';
 import { ArrowRight } from '../../components/icons';
 
-export const metadata = { title: 'Approach' };
+export const metadata = {
+  title: 'Approach',
+  description: 'How Selvaganapathi Kanakaraj approaches data flow, enterprise UX, end-to-end ownership, and human review in AI-assisted products.',
+  alternates: { canonical: '/about' },
+};
 
 const BELIEFS = [
   {

@@ -5,6 +5,8 @@ import Footer from '../components/layout/Footer';
 import { TourProvider } from '../components/tour/TourContext';
 import PortfolioTour from '../components/tour/PortfolioTour';
 import { Analytics } from "@vercel/analytics/next"
+import { LINKS } from '../lib/links';
+import { SITE_DESCRIPTION, SITE_URL } from '../lib/site';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -40,12 +42,54 @@ const themeInit = `(function(){
 })();`;
 
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Selvaganapathi Kanakaraj — Full Stack Developer',
     template: '%s — Selvaganapathi Kanakaraj',
   },
-  description:
-    'Full Stack Developer building scalable, production-grade web applications with Next.js, React, Node.js and TypeScript — across HRMS, MDM, and e-commerce platforms.',
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: '/' },
+  authors: [{ name: 'Selvaganapathi Kanakaraj', url: '/' }],
+  creator: 'Selvaganapathi Kanakaraj',
+  category: 'technology',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    siteName: 'Selvaganapathi Kanakaraj',
+    title: 'Selvaganapathi Kanakaraj — Full Stack Developer',
+    description: SITE_DESCRIPTION,
+    url: '/',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Selvaganapathi Kanakaraj — Full Stack Developer',
+    description: SITE_DESCRIPTION,
+  },
+};
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: 'Selvaganapathi Kanakaraj',
+      url: SITE_URL,
+      jobTitle: 'Full Stack Developer',
+      email: `mailto:${LINKS.email}`,
+      homeLocation: { '@type': 'Place', name: 'Bengaluru, India' },
+      sameAs: [LINKS.linkedin, LINKS.github],
+      knowsAbout: ['Next.js', 'React', 'Node.js', 'TypeScript', 'Enterprise software'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Selvaganapathi Kanakaraj — Portfolio',
+      description: SITE_DESCRIPTION,
+      author: { '@id': `${SITE_URL}/#person` },
+    },
+  ],
 };
 
 export const viewport = {
@@ -65,6 +109,10 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
+        />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <TourProvider>
           <Nav />

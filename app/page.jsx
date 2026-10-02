@@ -9,6 +9,7 @@ import { ArrowRight } from '../components/icons';
 
 export const metadata = {
   title: { absolute: 'Selvaganapathi Kanakaraj — Full Stack Developer' },
+  alternates: { canonical: '/' },
 };
 
 export default function Home() {

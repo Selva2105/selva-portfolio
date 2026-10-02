@@ -3,8 +3,9 @@ import ContactProfileCard from '../../components/contact/ContactProfileCard';
 import ContactChannels from '../../components/contact/ContactChannels';
 
 export const metadata = {
-  title: 'Contact — Selvaganapathi Kanakaraj',
+  title: 'Contact',
   description: 'Get in touch with Selvaganapathi Kanakaraj. Direct contact channels, availability, and background details.',
+  alternates: { canonical: '/contact' },
 };
 
 const FIT_CRITERIA = [

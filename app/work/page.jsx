@@ -4,7 +4,11 @@ import ProjectRow from '../../components/work/ProjectRow';
 import { PROJECTS } from '../../lib/projects';
 import { ArrowRight } from '../../components/icons';
 
-export const metadata = { title: 'Work' };
+export const metadata = {
+  title: 'Work',
+  description: 'Six full-stack case studies covering enterprise HR, device management, internal platforms, AI workflows, and event-driven systems.',
+  alternates: { canonical: '/work' },
+};
 
 export default function WorkPage() {
   return (

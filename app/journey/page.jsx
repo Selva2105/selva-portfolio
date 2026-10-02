@@ -3,7 +3,11 @@ import CsFacts from '../../components/ui/CsFacts';
 import TimelineItem from '../../components/journey/TimelineItem';
 import { JOURNEY } from '../../lib/journey';
 
-export const metadata = { title: 'Journey' };
+export const metadata = {
+  title: 'Journey',
+  description: 'A chronological record of Selvaganapathi Kanakaraj’s full-stack work across Brilyant, Zipid, Travelfika, and G2 Technology Solutions.',
+  alternates: { canonical: '/journey' },
+};
 
 export default function JourneyPage() {
   const total = JOURNEY.reduce((s, j) => s + j.products.length, 0);
