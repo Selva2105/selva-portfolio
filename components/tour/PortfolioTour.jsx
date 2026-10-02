@@ -210,6 +210,11 @@ export default function PortfolioTour() {
   useEffect(() => {
     if (!isOpen) return;
 
+    const previouslyFocused = document.activeElement;
+    const background = [document.querySelector('.nav'), document.querySelector('#app')].filter(Boolean);
+    background.forEach((element) => element.setAttribute('inert', ''));
+    tooltipRef.current?.focus();
+
     function handleKeyDown(e) {
       if (e.key === 'Escape') {
         endTour(true);
@@ -217,11 +222,27 @@ export default function PortfolioTour() {
         nextStep();
       } else if (e.key === 'ArrowLeft') {
         prevStep();
+      } else if (e.key === 'Tab') {
+        const controls = tooltipRef.current?.querySelectorAll('button:not([disabled]), [href]');
+        if (!controls?.length) return;
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     }
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      background.forEach((element) => element.removeAttribute('inert'));
+      previouslyFocused?.focus?.();
+    };
   }, [isOpen, nextStep, prevStep, endTour]);
 
   if (!mounted) return null;
@@ -234,7 +255,7 @@ export default function PortfolioTour() {
       className={`tour-overlay-portal ${isAnimating ? 'tour-animating' : ''}`}
       role="dialog"
       aria-modal="true"
-      aria-label="Portfolio Guide Tour"
+      aria-labelledby="tour-step-title"
     >
       {/* SVG Spotlight Mask */}
       <svg className="tour-spotlight-svg" width="100%" height="100%">
@@ -281,6 +302,7 @@ export default function PortfolioTour() {
       {/* Floating Tooltip Card */}
       <div
         ref={tooltipRef}
+        tabIndex={-1}
         className={`tour-tooltip-card placement-${tooltipPos.placement}`}
         style={{
           transform: `translate3d(${tooltipPos.left}px, ${tooltipPos.top}px, 0)`,
@@ -303,12 +325,12 @@ export default function PortfolioTour() {
         </div>
 
         <div className="tour-tooltip-content">
-          <h4 className="tour-step-title">{currentStepData?.title}</h4>
+          <h2 id="tour-step-title" className="tour-step-title">{currentStepData?.title}</h2>
           <p className="tour-step-desc">{currentStepData?.description}</p>
         </div>
 
         <div className="tour-tooltip-footer">
-          <div className="tour-dots" role="tablist">
+          <div className="tour-dots" aria-label="Tour progress">
             {steps.map((s, idx) => (
               <button
                 key={s.id}

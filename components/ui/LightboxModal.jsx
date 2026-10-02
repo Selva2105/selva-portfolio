@@ -1,23 +1,38 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
 export default function LightboxModal({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const dialogRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
+
+    const previouslyFocused = document.activeElement;
+    const background = [document.querySelector('.nav'), document.querySelector('#app')].filter(Boolean);
+    background.forEach((element) => element.setAttribute('inert', ''));
+    closeButtonRef.current?.focus();
 
     function onKeyDown(e) {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft' && onPrev) onPrev();
       if (e.key === 'ArrowRight' && onNext) onNext();
+      if (e.key === 'Tab') {
+        const controls = dialogRef.current?.querySelectorAll('button:not([disabled]), [href]');
+        if (!controls?.length) return;
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     }
 
     window.addEventListener('keydown', onKeyDown);
@@ -26,15 +41,18 @@ export default function LightboxModal({ images, currentIndex, isOpen, onClose, o
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
+      background.forEach((element) => element.removeAttribute('inert'));
+      previouslyFocused?.focus?.();
     };
   }, [isOpen, onClose, onPrev, onNext]);
 
-  if (!mounted || !isOpen || currentIndex < 0 || currentIndex >= images.length) return null;
+  if (!isOpen || typeof document === 'undefined' || currentIndex < 0 || currentIndex >= images.length) return null;
 
   const current = images[currentIndex];
 
   const modalContent = (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Image full view preview"
@@ -83,6 +101,7 @@ export default function LightboxModal({ images, currentIndex, isOpen, onClose, o
             ESC to close · ← → to navigate
           </span>
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             aria-label="Close image viewer"

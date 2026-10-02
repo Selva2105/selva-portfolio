@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Image from 'next/image';
 import SectionHead from '../ui/SectionHead';
 import LightboxModal from '../ui/LightboxModal';
@@ -19,10 +19,12 @@ const SCREENSHOTS = [
 
 function ScreenshotCard({ shot, index, featured = false, onOpen }) {
   return (
-    <div
+    <button
+      type="button"
       className="cs-shot-frame"
       onClick={() => onOpen(index)}
-      title={`Open screenshot: ${shot.title}`}
+      aria-haspopup="dialog"
+      aria-label={`Open screenshot: ${shot.title}`}
     >
       <div className="cs-shot-bar">
         <div className="cs-shot-dots" aria-hidden="true">
@@ -53,12 +55,19 @@ function ScreenshotCard({ shot, index, featured = false, onOpen }) {
         </div>
         <span className="cs-shot-tag">{shot.tag}</span>
       </div>
-    </div>
+    </button>
   );
 }
 
 export default function CairnGallery() {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
+  const closeLightbox = useCallback(() => setLightboxIndex(-1), []);
+  const previousImage = useCallback(() => {
+    setLightboxIndex((index) => (index > 0 ? index - 1 : SCREENSHOTS.length - 1));
+  }, []);
+  const nextImage = useCallback(() => {
+    setLightboxIndex((index) => (index < SCREENSHOTS.length - 1 ? index + 1 : 0));
+  }, []);
 
   return (
     <>
@@ -89,9 +98,9 @@ export default function CairnGallery() {
         images={SCREENSHOTS}
         currentIndex={lightboxIndex}
         isOpen={lightboxIndex >= 0}
-        onClose={() => setLightboxIndex(-1)}
-        onPrev={() => setLightboxIndex((index) => (index > 0 ? index - 1 : SCREENSHOTS.length - 1))}
-        onNext={() => setLightboxIndex((index) => (index < SCREENSHOTS.length - 1 ? index + 1 : 0))}
+        onClose={closeLightbox}
+        onPrev={previousImage}
+        onNext={nextImage}
       />
     </>
   );

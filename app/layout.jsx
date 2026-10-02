@@ -65,10 +65,11 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body suppressHydrationWarning>
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <TourProvider>
           <Nav />
           <div id="app">
-            {children}
+            <main id="main-content">{children}</main>
             <Footer />
           </div>
           <PortfolioTour />
