@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { WarnIcon } from '../icons';
+import RichText from '../ui/RichText';
 
 const STAGES = [
   { n: 'Job description' },
@@ -278,7 +279,7 @@ export default function RecruitmentPipelineDemo() {
           <button className="btn btn-s" style={{ fontSize: '.83rem', padding: '9px 16px' }} onClick={reset}>Reset</button>
           <span className="small" style={{ fontSize: '.78rem', color: 'var(--fg-3)' }}>{status}</span>
         </div>
-        <div className="callout" style={{ marginTop: 18, fontSize: '.82rem' }} dangerouslySetInnerHTML={{ __html: note }} />
+        <div className="callout" style={{ marginTop: 18, fontSize: '.82rem' }}><RichText>{note}</RichText></div>
       </div>
     </div>
   );

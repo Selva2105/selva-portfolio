@@ -1,4 +1,5 @@
 import Reveal from '../Reveal';
+import RichText from './RichText';
 
 export default function RoleNote({ a, b, roles = ['Full Stack Developer'] }) {
   return (
@@ -12,8 +13,8 @@ export default function RoleNote({ a, b, roles = ['Full Stack Developer'] }) {
         ))}
       </div>
       <div className="rolebox-body">
-        <p dangerouslySetInnerHTML={{ __html: a }} />
-        <p dangerouslySetInnerHTML={{ __html: b }} />
+        <p><RichText>{a}</RichText></p>
+        <p><RichText>{b}</RichText></p>
       </div>
     </Reveal>
   );

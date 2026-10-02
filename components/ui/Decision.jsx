@@ -1,4 +1,5 @@
 import Reveal from '../Reveal';
+import RichText from './RichText';
 
 export function Decision({ label, title, children }) {
   return (
@@ -16,7 +17,7 @@ export function Beats({ items }) {
       {items.map((it) => (
         <div className={`beat ${it.kind}`} key={it.lbl}>
           <span className="lbl">{it.lbl}</span>
-          <p dangerouslySetInnerHTML={{ __html: it.body }} />
+          <p><RichText>{it.body}</RichText></p>
         </div>
       ))}
     </div>
@@ -27,7 +28,7 @@ export function Note({ label, children, style }) {
   return (
     <div className="note" style={style}>
       <span className="lbl">{label}</span>
-      <p dangerouslySetInnerHTML={{ __html: children }} />
+      <p><RichText>{children}</RichText></p>
     </div>
   );
 }

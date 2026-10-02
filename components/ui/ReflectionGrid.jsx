@@ -1,4 +1,5 @@
 import Reveal from '../Reveal';
+import RichText from './RichText';
 
 export default function ReflectionGrid({ items }) {
   return (
@@ -6,7 +7,7 @@ export default function ReflectionGrid({ items }) {
       {items.map((r, i) => (
         <Reveal i={i} key={r.t}>
           <h4 className="h4" style={{ marginBottom: 12 }}>{r.t}</h4>
-          <p className="body" style={{ fontSize: '.94rem' }} dangerouslySetInnerHTML={{ __html: r.b }} />
+          <p className="body" style={{ fontSize: '.94rem' }}><RichText>{r.b}</RichText></p>
         </Reveal>
       ))}
     </div>

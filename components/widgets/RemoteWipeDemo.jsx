@@ -115,8 +115,8 @@ export default function RemoteWipeDemo() {
                 </button>
               ))}
             </div>
-            <p className="eyebrow" style={{ margin: '24px 0 12px' }}>Target group</p>
-            <select className="sel" style={{ width: '100%' }} value={target} onChange={(e) => selectTarget(e.target.value)}>
+            <label htmlFor="wipe-target" className="eyebrow" style={{ display: 'block', margin: '24px 0 12px' }}>Target group</label>
+            <select id="wipe-target" className="sel" style={{ width: '100%' }} value={target} onChange={(e) => selectTarget(e.target.value)}>
               <option value="one">Single device — Dell XPS (Tom V.)</option>
               <option value="team">Field Team — 12 devices</option>
               <option value="all">All Windows devices — 340 devices</option>
