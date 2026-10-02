@@ -5,6 +5,7 @@ import Footer from '../components/layout/Footer';
 import TourExperience from '../components/tour/TourExperience';
 import { Analytics } from "@vercel/analytics/next"
 import WebVitals from '../components/monitoring/WebVitals';
+import IntroLoader from '../components/ui/IntroLoader';
 import { LINKS } from '../lib/links';
 import { SITE_DESCRIPTION, SITE_URL } from '../lib/site';
 
@@ -36,6 +37,11 @@ const themeInit = `(function(){
     var stored = localStorage.getItem('theme');
     var theme = (stored === 'light' || stored === 'dark') ? stored : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
+    try {
+      if (sessionStorage.getItem('portfolio-intro-seen-v2') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.setAttribute('data-intro', 'skip');
+      }
+    } catch (e) {}
   } catch (e) {
     document.documentElement.setAttribute('data-theme', 'dark');
   }
@@ -109,6 +115,7 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body suppressHydrationWarning>
+        <IntroLoader />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
