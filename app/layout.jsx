@@ -37,11 +37,6 @@ const themeInit = `(function(){
     var stored = localStorage.getItem('theme');
     var theme = (stored === 'light' || stored === 'dark') ? stored : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
-    try {
-      if (sessionStorage.getItem('portfolio-intro-seen-v3') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.documentElement.setAttribute('data-intro', 'skip');
-      }
-    } catch (e) {}
   } catch (e) {
     document.documentElement.setAttribute('data-theme', 'dark');
   }

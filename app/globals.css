@@ -2098,7 +2098,6 @@ html[data-theme="light"] .starter-logo-front {
   .starter-loader { display: none !important; }
 }
 
-html[data-intro="skip"] .starter-loader{display:none}
 .state-page{min-height:65vh;display:flex;flex-wrap:wrap;align-content:center;align-items:center;gap:14px;max-width:760px;margin:auto;padding:clamp(80px,12vw,150px) var(--pad)}
 .state-page .h1,.state-page .h2,.state-page .lead,.state-page .body,.state-page .eyebrow{flex-basis:100%}
 .state-loader{width:18px;height:18px;border:2px solid var(--line-3);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite}

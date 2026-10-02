@@ -31,12 +31,7 @@ export default function IntroLoader() {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem('portfolio-intro-seen-v3') === '1';
-      sessionStorage.setItem('portfolio-intro-seen-v3', '1');
-    } catch {}
-    if (prefersReduced || seen) {
+    if (prefersReduced) {
       setMounted(false);
       return;
     }
