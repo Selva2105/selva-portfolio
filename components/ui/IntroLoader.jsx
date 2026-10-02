@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const INTRO_SEEN_KEY = 'portfolio-intro-seen';
-
 const PATH_TOP =
   'M22.7767 18.7606V14.5783C22.7767 10.0002 19.0684 6.2762 14.5059 6.2762C9.94336 6.2762 6.23503 10.0002 6.23503 14.5783C6.23503 19.1616 9.94336 22.8856 14.5059 22.8856H29.0007V29.1043H14.5059C12.5527 29.1043 10.6569 28.7293 8.87044 27.9689C7.14128 27.2345 5.5944 26.1981 4.26628 24.8647C2.93815 23.5262 1.89128 21.9741 1.16211 20.2397C0.406901 18.4481 0.0214844 16.5418 0.0214844 14.5783C0.0214844 12.6147 0.406901 10.7137 1.16211 8.91683C1.89128 7.18766 2.93815 5.63037 4.26628 4.29704C5.5944 2.9585 7.14128 1.91162 8.87044 1.18245C10.6569 0.422038 12.5527 0.0366211 14.5059 0.0366211C16.459 0.0366211 18.36 0.422038 20.1465 1.17725C21.8704 1.91162 23.4225 2.9585 24.7507 4.29183C26.0788 5.63037 27.1257 7.18245 27.8548 8.91683C28.6152 10.7137 29.0007 12.6147 29.0007 14.5783V18.7606H22.7767Z';
 
@@ -20,19 +18,10 @@ export default function IntroLoader() {
   const unmountTimerRef = useRef(null);
   const dismissingRef = useRef(false);
 
-  const rememberIntro = useCallback(() => {
-    try {
-      sessionStorage.setItem(INTRO_SEEN_KEY, 'true');
-    } catch {
-      // Storage can be unavailable in privacy-restricted browsing contexts.
-    }
-  }, []);
-
   const dismiss = useCallback(() => {
     if (dismissingRef.current) return;
     dismissingRef.current = true;
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rememberIntro();
     setProgress(100);
     setPhase('revealing');
     document.body.style.overflow = '';
@@ -40,30 +29,33 @@ export default function IntroLoader() {
       setPhase('done');
       setMounted(false);
     }, 1050);
-  }, [rememberIntro]);
+  }, []);
 
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem(INTRO_SEEN_KEY) === 'true') {
-        setMounted(false);
-        document.body.style.overflow = '';
-        return;
-      }
-    } catch {
-      // Continue normally when session storage is unavailable.
-    }
-
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      rememberIntro();
-      setMounted(false);
-      return;
+      setProgress(100);
+      setPhase('ready');
+      document.body.style.overflow = 'hidden';
+      revealTimerRef.current = setTimeout(() => {
+        setPhase('revealing');
+        document.body.style.overflow = '';
+      }, 2800);
+      unmountTimerRef.current = setTimeout(() => {
+        setPhase('done');
+        setMounted(false);
+      }, 2900);
+      return () => {
+        if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
+        if (unmountTimerRef.current) clearTimeout(unmountTimerRef.current);
+        document.body.style.overflow = '';
+      };
     }
 
     document.body.style.overflow = 'hidden';
 
     const startTime = performance.now();
-    const minimumVisibleMs = 900;
+    const minimumVisibleMs = 3200;
     let pageReady = document.readyState === 'complete';
 
     function onPageReady() {
@@ -75,7 +67,6 @@ export default function IntroLoader() {
     function reveal() {
       if (dismissingRef.current) return;
       dismissingRef.current = true;
-      rememberIntro();
       setProgress(100);
       setPhase('ready');
       revealTimerRef.current = setTimeout(() => {
@@ -85,7 +76,7 @@ export default function IntroLoader() {
           setPhase('done');
           setMounted(false);
         }, 1050);
-      }, 150);
+      }, 450);
     }
 
     function step(now) {
@@ -131,7 +122,7 @@ export default function IntroLoader() {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
     };
-  }, [dismiss, rememberIntro]);
+  }, [dismiss]);
 
   // Self-drawing glowing stroke math
   // Top curve draws from 0% -> 62%

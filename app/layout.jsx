@@ -40,12 +40,6 @@ const themeInit = `(function(){
   } catch (e) {
     document.documentElement.setAttribute('data-theme', 'dark');
   }
-
-  try {
-    if (sessionStorage.getItem('portfolio-intro-seen') === 'true') {
-      document.documentElement.setAttribute('data-intro-seen', 'true');
-    }
-  } catch (e) {}
 })();`;
 
 export const metadata = {

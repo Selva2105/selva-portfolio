@@ -1777,9 +1777,6 @@ html[data-theme="light"] .wrow:hover .wrow-viz{
   overflow: hidden;
 }
 
-html[data-intro-seen='true'] .starter-loader {
-  display: none;
-}
 
 /* Ambient glow blobs */
 .starter-amb {
@@ -2099,7 +2096,8 @@ html[data-theme="light"] .starter-logo-front {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .starter-loader { display: none !important; }
+  .starter-emblem-badge,.starter-emblem-shadow,.starter-ring,.starter-info{animation:none!important}
+  .starter-shutter,.starter-stage{transition-duration:.01s!important}
 }
 
 .state-page{min-height:65vh;display:flex;flex-wrap:wrap;align-content:center;align-items:center;gap:14px;max-width:760px;margin:auto;padding:clamp(80px,12vw,150px) var(--pad)}
