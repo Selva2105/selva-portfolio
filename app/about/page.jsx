@@ -59,7 +59,7 @@ export default function AboutPage() {
             How I <span className="em" style={{ color: 'var(--fg-2)' }}>actually</span> work
           </Reveal>
           <Reveal as="p" className="lead cs-sub" i={1}>
-            Four things I&apos;ve learned from two years of shipping production Next.js and Node.js
+            Four things I&apos;ve learned while shipping production Next.js and Node.js systems since 2023
             applications, each learned on a real project rather than read in a book.
           </Reveal>
         </div>

@@ -2,6 +2,7 @@ import Reveal from '../../components/Reveal';
 import CsFacts from '../../components/ui/CsFacts';
 import TimelineItem from '../../components/journey/TimelineItem';
 import { JOURNEY } from '../../lib/journey';
+import { PROJECTS } from '../../lib/projects';
 
 export const metadata = {
   title: 'Journey',
@@ -16,7 +17,7 @@ export default function JourneyPage() {
     { b: 'Jan 2023', s: 'First role — full stack intern' },
     { b: '4 companies', s: 'Intern → freelance → full-time' },
     { b: `${total} projects`, s: 'Shipped or contributed to end to end' },
-    { b: '5 case studies', s: 'Documented in depth' },
+    { b: `${PROJECTS.length} case studies`, s: 'Documented in depth' },
   ];
 
   return (
@@ -28,8 +29,8 @@ export default function JourneyPage() {
             Everything I&apos;ve shipped, <span className="em" style={{ color: 'var(--fg-2)' }}>in order</span>
           </Reveal>
           <Reveal as="p" className="lead cs-sub" i={2}>
-            Four companies, 2+ years, one stack that keeps showing up: React, Next.js, Node.js and
-            TypeScript. The five case studies are the ones worth your time — this page is the complete record.
+            Four companies since January 2023, one stack that keeps showing up: React, Next.js, Node.js and
+            TypeScript. The {PROJECTS.length} case studies are the ones worth your time — this page is the complete record.
           </Reveal>
           <CsFacts facts={facts} i={3} />
         </div>

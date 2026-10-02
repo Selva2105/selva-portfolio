@@ -8,7 +8,9 @@ export default function NdaNote() {
         <strong>A note on the interfaces below.</strong> These products ship inside enterprise
         customers under NDA, so I can&apos;t publish real screenshots. Every interface on this page
         is a functional recreation I built in code, matching the real screens I shipped. The
-        interactions are real — click them. The data is illustrative.
+        interactions are real — click them. The data is illustrative. Customer adoption, revenue,
+        and before/after performance figures are not publishable under those agreements, so the
+        case study uses verifiable scope, system scale, and shipped behavior instead of invented metrics.
       </p>
     </div>
   );

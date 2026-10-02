@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="foot-grid">
           <div className="stack-3">
             <p className="h4">Currently open to Full Stack / Frontend Developer roles.</p>
-            <p className="small" style={{ maxWidth: '52ch' }}>Bengaluru, India · Remote-friendly · 2+ years shipping production Next.js and Node.js applications.</p>
+            <p className="small" style={{ maxWidth: '52ch' }}>Bengaluru, India · Remote-friendly · Shipping production Next.js and Node.js applications since 2023.</p>
           </div>
           <div className="foot-links">
             <Link href="/work">Work</Link>
