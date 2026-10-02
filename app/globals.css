@@ -1777,6 +1777,10 @@ html[data-theme="light"] .wrow:hover .wrow-viz{
   overflow: hidden;
 }
 
+html[data-intro-seen='true'] .starter-loader {
+  display: none;
+}
+
 /* Ambient glow blobs */
 .starter-amb {
   position: absolute;
