@@ -38,7 +38,7 @@ const themeInit = `(function(){
     var theme = (stored === 'light' || stored === 'dark') ? stored : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
     try {
-      if (sessionStorage.getItem('portfolio-intro-seen-v2') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (sessionStorage.getItem('portfolio-intro-seen-v3') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.setAttribute('data-intro', 'skip');
       }
     } catch (e) {}
