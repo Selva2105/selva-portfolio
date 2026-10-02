@@ -1,10 +1,29 @@
 import './globals.css';
+import { Inter, JetBrains_Mono, Newsreader } from 'next/font/google';
 import Nav from '../components/layout/Nav';
 import Footer from '../components/layout/Footer';
-import StarterLoader from '../components/ui/StarterLoader';
 import { TourProvider } from '../components/tour/TourContext';
 import PortfolioTour from '../components/tour/PortfolioTour';
 import { Analytics } from "@vercel/analytics/next"
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  variable: '--font-newsreader',
+  style: ['italic'],
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 /*
  * Theme init — runs before first paint and before hydration.
@@ -37,18 +56,15 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${newsreader.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body suppressHydrationWarning>
-        <StarterLoader />
         <TourProvider>
           <Nav />
           <div id="app">

@@ -1,12 +1,9 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import Reveal from '../Reveal';
 import { ArrowRight, DocIcon } from '../icons';
 import { LINKS } from '../../lib/links';
 import heroImageDark from '../../public/hero-dark-image.png';
-import heroImageLight from '../../public/hero-light-image.png';
 
 const CHIPS = ['Next.js & React.js', 'Node.js & Express', 'TypeScript', 'Prisma & MongoDB', 'Ships production UI'];
 
@@ -62,16 +59,6 @@ export default function Hero() {
                 sizes="(max-width: 960px) 260px, 32vw"
                 priority
                 className="portrait-photo portrait-photo-dark"
-              />
-              <Image
-                src={heroImageLight}
-                alt=""
-                aria-hidden="true"
-                fill
-                placeholder="blur"
-                sizes="(max-width: 960px) 260px, 32vw"
-                priority
-                className="portrait-photo portrait-photo-light"
               />
               <span className="portrait-grade" aria-hidden="true" />
               <div className="portrait-cap">

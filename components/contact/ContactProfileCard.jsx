@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { DocIcon, LinkedinIcon, ExternalIcon } from '../icons';
 import { LINKS } from '../../lib/links';
 import heroDark from '../../public/hero-dark-image.png';
-import heroLight from '../../public/hero-light-image.png';
 
 // GitHub icon SVG component
 function GithubIcon(props) {
@@ -18,7 +17,6 @@ function GithubIcon(props) {
 
 export default function ContactProfileCard({
   imageDark = heroDark,
-  imageLight = heroLight,
   showPhoto = true,
 }) {
   const [istTime, setIstTime] = useState('');
@@ -57,16 +55,6 @@ export default function ContactProfileCard({
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 340px, 380px"
               priority
               className="contact-photo-img contact-photo-dark"
-            />
-            <Image
-              src={imageLight}
-              alt=""
-              aria-hidden="true"
-              fill
-              placeholder="blur"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 340px, 380px"
-              priority
-              className="contact-photo-img contact-photo-light"
             />
             <span className="contact-photo-vignette" aria-hidden="true" />
           </div>
